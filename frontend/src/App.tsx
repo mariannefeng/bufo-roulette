@@ -6,8 +6,7 @@ import Game from './components/Game';
 const API_URL = import.meta.env.VITE_API_URL || '';
 
 function App() {
-  // const [eligibleToPlay, setEligibleToPlay] = useState(false);
-  const [eligibleToPlay, setEligibleToPlay] = useState(true);
+  const [eligibleToPlay, setEligibleToPlay] = useState(false);
 
   const startGame = (payload: any) => {
     fetch(`${API_URL}/validate`, {
@@ -30,7 +29,7 @@ function App() {
       .catch((error) => {
         console.log(error);
         // TODO: this is temporary for testing
-        setEligibleToPlay(true)
+        // setEligibleToPlay(true)
       });
   }
 
