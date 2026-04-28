@@ -14,13 +14,11 @@ class ProblemRunner:
 
     def evaluate(self, src) -> bool:
         for test_case in self._test_cases:
-            # print(test_case)
-
             with Runtime(CONFIG) as runtime:
                 try:
                     full_src = "\r".join([self._header, src, self._footer])
                     runtime.eval(full_src + self.harness())
-                    print(f"passed test case {test_case}")
+                    # print(f"passed test case {test_case}")
                 except Exception as e:
                     self.lose(e)
                     return False

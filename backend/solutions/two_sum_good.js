@@ -1,11 +1,10 @@
-let indexes = [];
+const pairIdx = {};
 
-for(let i = 0; i < array.length; i++){
-    for(let j = i + 1; j < array.length; j++){
-        if (array[i] + array[j] === goal) {
-    indexes.push(i);
-    indexes.push(j);
-        }
+for (let i = 0; i < array.length; i++) {
+    const num = array[i];
+    if (goal - num in pairIdx) {
+        return [i, pairIdx[goal - num]];
     }
+    pairIdx[num] = i;
 }
-return indexes;
+return [];
