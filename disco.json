@@ -1,0 +1,12 @@
+{
+    "version": "1.0",
+    "services": {
+        "backend": { "image": "backend" }
+    },
+    "images": {
+        "backend": {
+            "dockerfile": "backend/Dockerfile",
+            "context": "backend"
+        },
+    }
+}
