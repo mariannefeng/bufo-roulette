@@ -16,7 +16,7 @@ export default function Welcome({ onSubmit }: { onSubmit: ({ }: { email: string,
                 <input className="border-2 border-gray-300 rounded-md p-1" type="url" value={url} placeholder="Your Zulip URL" onChange={(event) => setURL(event.target.value)} />
             </div>
 
-            <div className="mt-5">
+            <div className="mt-5 text-right">
                 <button className="rounded-md bg-bufo-dark hover:bg-bufo-light hover:text-black text-white px-2 py-1 cursor-pointer" onClick={(event) => {
                     event.preventDefault();
                     onSubmit({ email, key, url });
