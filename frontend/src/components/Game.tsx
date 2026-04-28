@@ -7,7 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL || '';
 
 export default function Game() {
     const [code, setCode] = useState("");
-    const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState<undefined | boolean>();
 
     const fuckMeUp = () => {
         const confirmed = window.confirm("Are you ready?");
@@ -42,20 +42,25 @@ export default function Game() {
     }
 
     return <section>
-        <div className="flex justify-center"><img src={bufoLock} /></div>
-        <pre>{`const twoSum = (array, goal) => { `}</pre>
-        <CodeEditor
-            value={code}
-            language="ts"
-            minHeight={300}
-            onChange={(evn) => setCode(evn.target.value)}
-        />
-        <pre>{`}`}</pre>
+        {success === undefined &&
+            <>
+                <div className="flex justify-center"><img src={bufoLock} /></div>
+                <pre>{`const twoSum = (array, goal) => { `}</pre>
+                <CodeEditor
+                    value={code}
+                    language="ts"
+                    minHeight={300}
+                    onChange={(evn) => setCode(evn.target.value)}
+                />
+                <pre>{`}`}</pre>
 
-        <div className='mt-10 text-right'>
-            <button className="rounded-md bg-bufo-dark hover:bg-bufo-light hover:text-black text-white px-2 py-1 cursor-pointer" onClick={fuckMeUp}>
-                ship it <img src={bufoShip} />
-            </button>
-        </div>
+                <div className='mt-10 text-right'>
+                    <button className="rounded-md bg-bufo-dark hover:bg-bufo-light hover:text-black text-white px-2 py-1 cursor-pointer" onClick={fuckMeUp}>
+                        ship it <img src={bufoShip} />
+                    </button>
+                </div>
+            </>}
+        {success !== undefined && success === true && <div>success! you're not bad, kid</div>}
+        {success !== undefined && success === false && <div>rip zulip</div>}
     </section>
 }
