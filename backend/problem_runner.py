@@ -12,7 +12,7 @@ class ProblemRunner:
     def add_test_case(self, test_case: str, result: str):
         self._test_cases.append([test_case, result])
 
-    def evaluate(self, src):
+    def evaluate(self, src) -> bool:
         for test_case in self._test_cases:
             # print(test_case)
 
@@ -23,8 +23,9 @@ class ProblemRunner:
                     print(f"passed test case {test_case}")
                 except Exception as e:
                     self.lose(e)
-                    return
+                    return False
         print("you passed!")
+        return True
 
     def lose(self, e: Exception):
         print("you failed: " + e.message)
@@ -34,21 +35,4 @@ class ProblemRunner:
         return f"const test_cases = [\n{test_cases_str}\n];"
 
     def harness(self):
-        return f"""
-const input = [[2, 7, 11, 15], 9];
-const result = twoSum(input[0], input[1]);
-
-{self.test_cases()}
-
-test_cases.forEach((test_case) => {{
-    const input = test_case[0];
-    const target = test_case[1];
-    const expected = test_case[2];
-
-    const result = twoSum(input, target);
-    if (result.toString() != expected.toString()) {{
-        console.log("you fucked up");
-        throw new Error(`failed for test case (array = [${{input}}], goal = ${{target}}). Expected [${{expected}}], got [${{result}}]`);
-    }}
-}});
-        """
+        raise NotImplementedError(f"harness not implemented")
