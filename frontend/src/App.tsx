@@ -29,8 +29,6 @@ function App() {
       .catch((error) => {
         console.log(error);
         alert("Oh no! Looks like your creds are trash")
-        // TODO: this is temporary for testing
-        // setEligibleToPlay(true)
       });
   }
 

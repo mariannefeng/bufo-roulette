@@ -36,7 +36,7 @@ export default function Game() {
     }, [success]);
 
     const fuckMeUp = () => {
-        const confirmed = window.confirm("Are you ready?");
+        const confirmed = window.confirm("Are you sure?");
 
         if (!confirmed) {
             return
