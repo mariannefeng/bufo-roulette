@@ -1,6 +1,7 @@
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import bufoLock from '../assets/bufo-lock.png'
 import bufoShip from '../assets/bufo-ship.png'
+import bufoWipeSweat from '../assets/bufo-wipes-sweat.png'
 import { useState } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
@@ -38,6 +39,7 @@ export default function Game() {
             .catch((error) => {
                 console.log(error);
                 setSuccess(false);
+                // setSuccess(true);
             });
     }
 
@@ -60,7 +62,7 @@ export default function Game() {
                     </button>
                 </div>
             </>}
-        {success !== undefined && success === true && <div>success! you're not bad, kid</div>}
+        {success !== undefined && success === true && <div className="flex justify-center flex-col text-center"><img src={bufoWipeSweat} /></div>}
         {success !== undefined && success === false && <div>rip zulip</div>}
     </section>
 }
