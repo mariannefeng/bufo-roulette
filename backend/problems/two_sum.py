@@ -23,7 +23,7 @@ class TwoSumProblemRunner(ProblemRunner):
             const expected = test_case[2];
 
             const result = twoSum(input, target);
-            if (result.toString() != expected.toString()) {{
+            if (JSON.stringify(result) !== JSON.stringify(expected)) {{
                 console.log("you fucked up");
                 throw new Error(`failed for test case (array = [${{input}}], goal = ${{target}}). Expected [${{expected}}], got [${{result}}]`);
             }}
