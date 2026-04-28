@@ -49,7 +49,9 @@ export default function Game() {
             headers: {
                 "Content-Type": "Application/JSON",
             },
-            body: JSON.stringify(code),
+            body: JSON.stringify({
+                code
+            }),
         })
             .then((response: Response) => {
                 if (!response.ok) {
