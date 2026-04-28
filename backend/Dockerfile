@@ -2,9 +2,9 @@ FROM node:22-slim
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 WORKDIR /app/backend
-COPY backend/pyproject.toml backend/uv.lock ./
+COPY ./pyproject.toml ./uv.lock ./
 RUN uv sync --frozen
-COPY backend/ ./
+COPY ./ ./
 
 EXPOSE 5000
 
