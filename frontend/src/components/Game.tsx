@@ -58,7 +58,7 @@ export default function Game() {
                     throw new Error("Failed validation")
                 }
 
-                return response.json()
+                return response.text()
             }).then((resp) => {
                 console.log('json response', resp)
                 setSuccess(true);
