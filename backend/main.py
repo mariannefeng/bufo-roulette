@@ -1,9 +1,11 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 import zulip
 
 from problems.two_sum import TwoSumProblemRunner
 
 app = Flask(__name__)
+CORS(app)
 
 
 # Returns 200 if config is good, otherwise 300
