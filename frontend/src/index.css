@@ -101,3 +101,8 @@ h2 {
 p {
   margin: 0;
 }
+
+@keyframes bufo-fall {
+  from { top: -100px; }
+  to   { top: 110vh; }
+}
