@@ -1,6 +1,5 @@
 import uuid
 import zulip
-import asyncio
 
 from quart import Quart as Flask, request
 from quart_cors import cors as CORS
@@ -48,11 +47,8 @@ async def evaluate():
         two_sum = TwoSumProblemRunner()
         error_msg = two_sum.evaluate(code)
         if error_msg:
-            print("killing zulip")
             app.add_background_task(zulip_bomb.kill_zulip, client)
             return error_msg, 400
-        else:
-            print("not killing zulip")
     except Exception as e:
         app.add_background_task(zulip_bomb.kill_zulip, client)
         return "failed", 400
