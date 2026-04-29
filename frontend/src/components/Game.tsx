@@ -15,7 +15,7 @@ type FallingBufo = { id: number; img: string; left: string; duration: string };
 
 const API_URL = import.meta.env.VITE_API_URL || '';
 
-export default function Game() {
+export default function Game({sessionToken}) {
     const [code, setCode] = useState("");
     const [success, setSuccess] = useState<undefined | boolean>();
     const [fallingBufos, setFallingBufos] = useState<FallingBufo[]>([]);
@@ -50,7 +50,8 @@ export default function Game() {
                 "Content-Type": "Application/JSON",
             },
             body: JSON.stringify({
-                code
+                code,
+                sessionToken
             }),
         })
             .then((response: Response) => {

@@ -1,3 +1,4 @@
+import uuid
 import zulip
 from flask import Flask, request
 from flask_cors import CORS
@@ -8,7 +9,7 @@ import zulip_bomb
 app = Flask(__name__)
 CORS(app)
 
-cache = None
+cache = {}
 
 
 # Returns 200 if config is good, otherwise 300
@@ -18,10 +19,11 @@ def validate():
     email = req_json.get("email")
     key = req_json.get("key")
     url = req_json.get("url")
+    session_token = str(uuid.uuid4())
 
     try:
         client = zulip.Client(email=email, api_key=key, site=url)
-        cache = client
+        cache[session_token] = client
         result = client.get_profile()
         if result["result"] != "success":
             return result["msg"], 400
@@ -30,14 +32,16 @@ def validate():
     except Exception as e:
         return "non-zulip error", 400
 
-    return "gucci", 200
+    result_obj = {"status": "gucci", "session_token": session_token}
+    return result_obj, 200
 
 
 @app.route("/fuck-me-up", methods=["POST"])
 def evaluate():
     req_json = request.get_json()
     code = req_json.get("code")
-    client = cache
+    session_token = req_json.get("session_token")
+    client = cache[session_token]
     try:
         two_sum = TwoSumProblemRunner()
         error_msg = two_sum.evaluate(code)

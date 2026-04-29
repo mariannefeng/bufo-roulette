@@ -7,6 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL || '';
 
 function App() {
   const [eligibleToPlay, setEligibleToPlay] = useState(false);
+  const [sessionToken, setSessionToken] = useState("");
 
   const startGame = (payload: any) => {
     fetch(`${API_URL}/validate`, {
@@ -24,6 +25,7 @@ function App() {
         return response.text()
       }).then((resp) => {
         console.log('json response', resp)
+        setSessionToken(JSON.parse(resp)['session_token'])
         setEligibleToPlay(true)
       })
       .catch((error) => {
@@ -34,7 +36,7 @@ function App() {
 
   return (
     <section>
-      {!eligibleToPlay ? <Welcome onSubmit={startGame} /> : <Game />}
+      {!eligibleToPlay ? <Welcome onSubmit={startGame} /> : <Game sessionToken={sessionToken} />}
     </section>
   )
 }
