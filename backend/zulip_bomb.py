@@ -1,3 +1,4 @@
+import asyncio
 import re
 import time
 from pathlib import Path
@@ -18,7 +19,7 @@ async def kill_zulip(client: Client, dry_run: bool = True):
     ]
     for msg in msgs:
         print(msg)
-        time.sleep(1)
+        await asyncio.sleep(1)
 
     path = Path("./bufos/")
 
@@ -66,7 +67,7 @@ async def kill_zulip(client: Client, dry_run: bool = True):
         ]
         for msg in msgs:
             print(msg)
-            time.sleep(1)
+            await asyncio.sleep(1)
 
     if errors:
         print(f"\t{errors}")
