@@ -15,7 +15,7 @@ type FallingBufo = { id: number; img: string; left: string; duration: string };
 
 const API_URL = import.meta.env.VITE_API_URL || '';
 
-export default function Game({sessionToken}) {
+export default function Game({ sessionToken }: any) {
     const [code, setCode] = useState("");
     const [success, setSuccess] = useState<undefined | boolean>();
     const [fallingBufos, setFallingBufos] = useState<FallingBufo[]>([]);
@@ -74,28 +74,28 @@ export default function Game({sessionToken}) {
         {success === undefined &&
             <>
                 <div className="flex justify-center"><img src={bufoLock} /></div>
-                <div className='mt-10 text' style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                  <div>
-                    Given an array of integers <code>array</code> and an integer <code>goal</code>, return indices of the two numbers such that they add up to goal.
-                    You may assume that each input would have exactly one solution, and you may not use the same element twice.
-                    You can return the answer in any order.
+                <div className='mt-10 text' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <div>
-                      <br></br>
-                      <b>Example 1:</b>
+                        Given an array of integers <code>array</code> and an integer <code>goal</code>, return indices of the two numbers such that they add up to goal.
+                        You may assume that each input would have exactly one solution, and you may not use the same element twice.
+                        You can return the answer in any order.
+                        <div>
+                            <br></br>
+                            <b>Example 1:</b>
 
-                      <br></br>
-                      Input: array = <b>[2,7,11,15]</b>, goal = <b>9</b>
-                      <br></br>
-                      Output: <b>[0,1]</b>
-                      <br></br>
-                      Explanation: Because array[0] + array[1] == 9, we return <b>[0, 1]</b>.
-                      <br></br>
-                      <br></br>
-                      We have provided the function definition for you, you just need to fill in the body.
-                      <br></br>
-                      <br></br>
+                            <br></br>
+                            Input: array = <b>[2,7,11,15]</b>, goal = <b>9</b>
+                            <br></br>
+                            Output: <b>[0,1]</b>
+                            <br></br>
+                            Explanation: Because array[0] + array[1] == 9, we return <b>[0, 1]</b>.
+                            <br></br>
+                            <br></br>
+                            We have provided the function definition for you, you just need to fill in the body.
+                            <br></br>
+                            <br></br>
+                        </div>
                     </div>
-                  </div>
                 </div>
 
                 <pre>{`const twoSum = (array, goal) => { `}</pre>
@@ -109,19 +109,19 @@ export default function Game({sessionToken}) {
                 <pre>{`}`}</pre>
 
                 <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-                  <div className='mt-10 text' style={{flexBasis: '80%'}}>
-                      <p>When you submit this code, if it does not succeed and pass all test cases, 2418 bufos will be uploaded to your Zulip instance using your identity.</p>
-                      <p>Currently there is a bug in Zulip's emoji upload endpoint that causes this to be an n² operation - all bufos get downloaded for each successful bufo emoji. With 2418 bufos, that's about <b>5.7 million image downloads.</b></p>
-                      <p>This will <b>COMPLETELY lock up your Zulip instance for several hours.</b></p>
-                      <p>Worse than that, you will receive a polite but stern DM from a real person at Zulip.</p>
-                      <p><b>PLEASE</b> be certain that you want to do this.</p>
-                  </div>
+                    <div className='mt-10 text' style={{ flexBasis: '80%' }}>
+                        <p>When you submit this code, if it does not succeed and pass all test cases, 2418 bufos will be uploaded to your Zulip instance using your identity.</p>
+                        <p>Currently there is a bug in Zulip's emoji upload endpoint that causes this to be an n² operation - all bufos get downloaded for each successful bufo emoji. With 2418 bufos, that's about <b>5.7 million image downloads.</b></p>
+                        <p>This will <b>COMPLETELY lock up your Zulip instance for several hours.</b></p>
+                        <p>Worse than that, you will receive a polite but stern DM from a real person at Zulip.</p>
+                        <p><b>PLEASE</b> be certain that you want to do this.</p>
+                    </div>
 
-                  <div className='mt-10 text-right'>
-                      <button className="rounded-md bg-bufo-dark hover:bg-bufo-light hover:text-black text-white px-2 py-1 cursor-pointer" onClick={fuckMeUp}>
-                          ship it <img src={bufoShip} />
-                      </button>
-                  </div>
+                    <div className='mt-10 text-right'>
+                        <button className="rounded-md bg-bufo-dark hover:bg-bufo-light hover:text-black text-white px-2 py-1 cursor-pointer" onClick={fuckMeUp}>
+                            ship it <img src={bufoShip} />
+                        </button>
+                    </div>
                 </div>
             </>}
         {success !== undefined && success === true && <div className="flex justify-center flex-col text-center"><img src={bufoWipeSweat} /></div>}
