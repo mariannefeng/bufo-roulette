@@ -76,7 +76,7 @@ export default function Game({sessionToken}) {
                 <div className="flex justify-center"><img src={bufoLock} /></div>
                 <div className='mt-10 text' style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                   <div>
-                    Given an array of integers <tt>array</tt> and an integer <tt>goal</tt>, return indices of the two numbers such that they add up to goal.
+                    Given an array of integers <code>array</code> and an integer <code>goal</code>, return indices of the two numbers such that they add up to goal.
                     You may assume that each input would have exactly one solution, and you may not use the same element twice.
                     You can return the answer in any order.
                     <div>
