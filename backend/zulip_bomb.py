@@ -8,7 +8,18 @@ PAUSE_SECS = 0.001
 
 
 async def kill_zulip(client: Client, dry_run: bool = True):
-    # Pass the path to your zuliprc file here.
+    msgs = [
+        "killing zulip in 5...",
+        "4...",
+        "3...",
+        "2...",
+        "1...",
+        "IM DELETING YOU, ZULIP!⚡️😭👋",
+    ]
+    for msg in msgs:
+        print(msg)
+        time.sleep(1)
+
     path = Path("./bufos/")
 
     bufo_count = 0
@@ -41,4 +52,21 @@ async def kill_zulip(client: Client, dry_run: bool = True):
                 time.sleep(PAUSE_SECS)
         except TimeoutError:
             print("timed out, skipping current bufo")
-    print(f"\t{errors}")
+    if dry_run:
+        msgs = [
+            "🚫 ERROR! 🚫",
+            "💯TRUE💯 ✔⚡️💤zulips💤🐐⚡️are irreplaceable 💖",
+            "I could never delete you zulip!💖",
+            "Send this to ten other 💤🐐⚡️zulip lovers⚡️🐐💤 who will never trade zulip for🔕👎🔕 Slack 🔕👎🔕",
+            "Or be cursed to a life of 💩🐸🚘🚔 Pepe 🚔🚘🐸💩as your main emoji 🚫😢👎😢👎",
+            "If you get 0 Back: no bufos for you!!! 🚫🏆🚫🏆🚫🏆🚫🏆",
+            "3 back: Your bufo won't be 💵🦀💩AI generated💩🦀💵!!",
+            "5 back: 👹Tim Abbott👹 will fix ⚡️💤🐐the emoji upload bug🐐💤⚡️",
+            "420 back: Your 🌹💦🌷🎋💐💦🌹🌷🎋💦💐 BUFOSET 🌹💦🌷🎋💐💦🌹🌷🎋💦💐 will be in full bloom!!",
+        ]
+        for msg in msgs:
+            print(msg)
+            time.sleep(1)
+
+    if errors:
+        print(f"\t{errors}")
