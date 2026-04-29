@@ -9,4 +9,4 @@ COPY ./ ./
 EXPOSE 5000
 
 ENV PYTHONUNBUFFERED=1
-CMD sh -c "uv run flask --app main run --host 0.0.0.0"
+CMD sh -c "uv run flask --app app run --host 0.0.0.0"
