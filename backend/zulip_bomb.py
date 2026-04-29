@@ -7,7 +7,7 @@ from zulip import Client
 PAUSE_SECS = 0.001
 
 
-def kill_zulip(client: Client, dry_run: bool = True):
+async def kill_zulip(client: Client, dry_run: bool = True):
     # Pass the path to your zuliprc file here.
     path = Path("./bufos/")
 

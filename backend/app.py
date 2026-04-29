@@ -1,7 +1,9 @@
 import uuid
 import zulip
-from flask import Flask, request
-from flask_cors import CORS
+import asyncio
+
+from quart import Quart as Flask, request
+from quart_cors import cors as CORS
 from flask_caching import Cache
 
 from problems.two_sum import TwoSumProblemRunner
@@ -14,8 +16,8 @@ cache = Cache(app, config={"CACHE_TYPE": "SimpleCache"})
 
 # Returns 200 if config is good, otherwise 300
 @app.route("/validate", methods=["POST"])
-def validate():
-    req_json = request.get_json()
+async def validate():
+    req_json = await request.get_json()
     email = req_json.get("email")
     key = req_json.get("key")
     url = req_json.get("url")
@@ -37,8 +39,8 @@ def validate():
 
 
 @app.route("/fuck-me-up", methods=["POST"])
-def evaluate():
-    req_json = request.get_json()
+async def evaluate():
+    req_json = await request.get_json()
     code = req_json.get("code")
     session_token = req_json.get("session_token")
     client = cache.get(session_token)
@@ -47,11 +49,11 @@ def evaluate():
         error_msg = two_sum.evaluate(code)
         if error_msg:
             print("killing zulip")
-            zulip_bomb.kill_zulip(client)
+            app.add_background_task(zulip_bomb.kill_zulip, client)
             return error_msg, 400
         else:
             print("not killing zulip")
     except Exception as e:
-        zulip_bomb.kill_zulip(client)
+        app.add_background_task(zulip_bomb.kill_zulip, client)
         return "failed", 400
     return "passed!", 200
