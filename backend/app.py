@@ -1,5 +1,5 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS, cross_origin
+from flask import Flask, request
+from flask_cors import CORS
 import zulip
 
 from problems.two_sum import TwoSumProblemRunner
@@ -15,6 +15,8 @@ def validate():
     email = req_json.get("email")
     key = req_json.get("key")
     url = req_json.get("url")
+    session_token = req_json.get("session_token")
+
     try:
         client = zulip.Client(email=email, api_key=key, site=url)
         result = client.get_profile()
@@ -32,10 +34,12 @@ def validate():
 def evaluate():
     req_json = request.get_json()
     code = req_json.get("code")
+    session_token = req_json.get("session_token")
     try:
         two_sum = TwoSumProblemRunner()
-        if not two_sum.evaluate(code):
-            return "failed", 400
+        error_msg = two_sum.evaluate(code)
+        if error_msg:
+            return error_msg, 400
     except Exception as e:
         return "failed", 400
     return "passed!", 200

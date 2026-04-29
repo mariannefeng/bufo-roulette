@@ -12,18 +12,17 @@ class ProblemRunner:
     def add_test_case(self, test_case: str, result: str):
         self._test_cases.append([test_case, result])
 
-    def evaluate(self, src) -> bool:
+    def evaluate(self, src) -> str | None:
         for test_case in self._test_cases:
             with Runtime(CONFIG) as runtime:
                 try:
                     full_src = "\r".join([self._header, src, self._footer])
                     runtime.eval(full_src + self.harness())
-                    # print(f"passed test case {test_case}")
                 except Exception as e:
                     self.lose(e)
-                    return False
+                    return e.message
         print("you passed!")
-        return True
+        return None
 
     def lose(self, e: Exception):
         print("you failed: " + e.message)
