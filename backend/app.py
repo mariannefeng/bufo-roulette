@@ -1,11 +1,14 @@
+import zulip
 from flask import Flask, request
 from flask_cors import CORS
-import zulip
 
 from problems.two_sum import TwoSumProblemRunner
+import zulip_bomb
 
 app = Flask(__name__)
 CORS(app)
+
+cache = None
 
 
 # Returns 200 if config is good, otherwise 300
@@ -15,10 +18,10 @@ def validate():
     email = req_json.get("email")
     key = req_json.get("key")
     url = req_json.get("url")
-    session_token = req_json.get("session_token")
 
     try:
         client = zulip.Client(email=email, api_key=key, site=url)
+        cache = client
         result = client.get_profile()
         if result["result"] != "success":
             return result["msg"], 400
@@ -34,12 +37,17 @@ def validate():
 def evaluate():
     req_json = request.get_json()
     code = req_json.get("code")
-    session_token = req_json.get("session_token")
+    client = cache
     try:
         two_sum = TwoSumProblemRunner()
         error_msg = two_sum.evaluate(code)
         if error_msg:
+            print("killing zulip")
+            zulip_bomb.kill_zulip(client)
             return error_msg, 400
+        else:
+            print("not killing zulip")
     except Exception as e:
+        zulip_bomb.kill_zulip(client)
         return "failed", 400
     return "passed!", 200
