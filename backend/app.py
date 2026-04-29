@@ -2,14 +2,14 @@ import uuid
 import zulip
 from flask import Flask, request
 from flask_cors import CORS
+from flask_caching import Cache
 
 from problems.two_sum import TwoSumProblemRunner
 import zulip_bomb
 
 app = Flask(__name__)
 CORS(app)
-
-cache = {}
+cache = Cache(app, config={"CACHE_TYPE": "SimpleCache"})
 
 
 # Returns 200 if config is good, otherwise 300
@@ -23,7 +23,7 @@ def validate():
 
     try:
         client = zulip.Client(email=email, api_key=key, site=url)
-        cache[session_token] = client
+        cache.set(session_token, client)
         result = client.get_profile()
         if result["result"] != "success":
             return result["msg"], 400
@@ -41,7 +41,7 @@ def evaluate():
     req_json = request.get_json()
     code = req_json.get("code")
     session_token = req_json.get("session_token")
-    client = cache[session_token]
+    client = cache.get(session_token)
     try:
         two_sum = TwoSumProblemRunner()
         error_msg = two_sum.evaluate(code)
