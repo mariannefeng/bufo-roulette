@@ -21,6 +21,19 @@ export default function Game({ sessionToken }: any) {
     const [fallingBufos, setFallingBufos] = useState<FallingBufo[]>([]);
 
     useEffect(() => {
+        const onBeforeUnload = () => {
+            navigator.sendBeacon(`${API_URL}/chicken-out`, JSON.stringify({ session_token: { sessionToken } }));
+            return "Anything here as well, doesn't matter!";
+        };
+
+        window.addEventListener("beforeunload", onBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", onBeforeUnload);
+        };
+    }, [])
+
+    useEffect(() => {
         if (success !== false) return;
 
         const interval = setInterval(() => {
