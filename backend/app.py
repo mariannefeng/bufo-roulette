@@ -1,3 +1,4 @@
+import json
 import uuid
 import zulip
 
@@ -53,3 +54,22 @@ async def evaluate():
         app.add_background_task(zulip_bomb.kill_zulip, client)
         return "failed", 400
     return "passed!", 200
+
+
+@app.route("/chicken-out", methods=["POST"])
+async def chicken():
+    req_json = await request.get_data()
+    import pdb
+
+    pdb.set_trace()
+    session_token = json.loads(req_json)["session_token"]
+    if session_token is None:
+        return
+
+    print("chicken detected!!!")
+    client = cache.get(session_token)
+    full_name = client.get_profile()["full_name"]
+
+    alnum_name = "".join(char for char in full_name if char.isalnum())
+    print(f"{alnum_name} is a chicken")
+    return {"foo": "bar"}, 200
